@@ -52,11 +52,19 @@ export class HomeComponent {
 
   }
 
-  deleteRow(index: number) {
+  confirmDelete(index: number): void {
+    const confirmacao = confirm("Tem certeza que deseja remover este item?");
+    if (confirmacao) {
+      this.deleteRow(index);
+    }}
 
-    this.dataSource.splice(index, 1);
-    this.dataSource = [...this.dataSource]; // Update the data source to trigger change detection
-}
+
+    deleteRow(index: number): void {
+      this.dataSource.splice(index, 1);
+      this.dataSource = [...this.dataSource]; // Atualiza a tabela
+    }
+
+
 
   mostrar = false;
 
