@@ -1,0 +1,64 @@
+<div class="container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <input *ngIf="editandoIndex === i" type="text" [(ngModel)]="element.nome">
+        <span *ngIf="editandoIndex !== i">{{ element.nome }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="turma">
+      <th mat-header-cell *matHeaderCellDef> Turma </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <input *ngIf="editandoIndex === i" type="number" [(ngModel)]="element.turma">
+        <span *ngIf="editandoIndex !== i">{{ element.turma }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="horario">
+      <th mat-header-cell *matHeaderCellDef> Horário </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <input *ngIf="editandoIndex === i" type="text" [(ngModel)]="element.horario">
+        <span *ngIf="editandoIndex !== i">{{ element.horario }}</span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Ações </th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <button *ngIf="editandoIndex !== i" mat-icon-button (click)="startEdit(i)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="editandoIndex === i" mat-icon-button (click)="saveEdit()">
+          <mat-icon>check</mat-icon> <!-- Confirma edição -->
+        </button>
+        <button mat-icon-button (click)="deleteRow(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <button (click)="mostrar = !mostrar" mat-fab color="primary" class="btn_add_user">Novo Aluno</button>
+
+    <div id="add_element" *ngIf="mostrar" >
+      <div class="input__local">
+        <span> <input type="text" id="send_nome" matInput placeholder="Nome" [(ngModel)]="novoItem.nome"> </span>
+        <span> <input type="text" id="send_turma" matInput placeholder="Turma" [(ngModel)]="novoItem.turma"> </span>
+        <span> <input type="text" id="send_horario" matInput placeholder="Horário" [(ngModel)]="novoItem.horario"> </span>
+      </div>
+      <div class="button__local">
+        <button (click)="add_new_element()"> enviar </button>
+        <button (click)="mostrar = !mostrar"> Cancelar </button>
+      </div>
+    </div>
+  </div>
+
+
